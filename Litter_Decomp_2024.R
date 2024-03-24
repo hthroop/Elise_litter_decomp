@@ -82,7 +82,7 @@ pct_ash_means <- Litter |>
 grass_initial_pctash <- as.numeric(pct_ash_means[1,4])
 shrub_initial_pctash <- as.numeric(pct_ash_means[5,4])
 
-# calculate ash-free inital and final litter masses
+# calculate ash-free initial and final litter masses
 Litter <- Litter |>
   mutate(
     Initial_mass_ash_free = ifelse(Litter_substrate == "Grass", 
