@@ -1,0 +1,414 @@
+Species,Month,Initial_mass,Lbag_weight,Litter_substrate,microsite,Crucible_mass,Sample_cruc_mass,Ash_cruc_mass,Ash remaining
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,17.25,17.49,17.26,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,18.83,19.09,18.83,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,17.15,17.41,17.16,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,17.18,17.44,17.17,-0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,16.69,16.94,16.7,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,17.42,17.67,17.42,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,19.13,19.37,19.12,-0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,18.09,18.34,18.1,0.01
+Arthraerua_leubnitziae ,0,4,3.9502,Grass,Vegetated_patch,20.15,20.4,20.15,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,17.25,17.51,17.24,-0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,17.64,17.9,17.64,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,18.77,19.02,18.76,-0.01
+Arthraerua_leubnitziae ,0,4,3.9001,Grass,Vegetated_patch,16.67,16.93,16.67,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,17.11,17.36,17.12,0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,17.13,17.38,17.13,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,17.99,18.24,18,0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,36.44,36.7,36.45,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,38.29,38.52,38.29,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,39.5,39.75,39.5,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,39.43,39.67,39.43,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,42.42,42.68,42.42,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,40.4,40.66,40.41,0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,62.11,62.36,62.12,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,58.39,58.64,58.39,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,53.59,53.85,53.6,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,51.86,52.13,51.86,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,17.5,17.76,17.5,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,16.34,16.59,16.34,0
+Arthraerua_leubnitziae ,0,4,3.9912,Grass,Vegetated_patch,16.82,17.08,16.81,-0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,20.15,20.4,20.15,0
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,17.42,17.67,17.42,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,17.19,17.41,17.2,0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,17.23,17.49,17.24,0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,16.42,16.66,16.41,-0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,18.76,19.03,18.76,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,16.68,16.93,16.7,0.02
+Arthraerua_leubnitziae ,0,4,4,Grass,Vegetated_patch,17.11,17.36,17.1,-0.01
+Arthraerua_leubnitziae ,0,4,4,Shrub,Vegetated_patch,17.25,17.49,17.26,0.01
+Arthraerua_leubnitziae ,0,4,4,Grass,Unvegetated_patch,17.13,17.39,17.13,0
+Arthraerua_leubnitziae ,0,4,4,Shrub,Unvegetated_patch,17.16,17.42,17.15,-0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,17.41,17.68,17.41,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,17.12,17.38,17.12,0
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,16.34,16.65,16.35,0.01
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,16.32,16.55,16.33,0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,17.45,17.7,17.45,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,20.25,20.5,20.24,-0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,18.83,19.09,18.82,-0.01
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,17.99,18.24,17.99,0
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,16.5,16.75,16.5,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,16.33,16.57,16.33,0
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,18.08,18.31,18.08,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,17.45,17.7,17.44,-0.01
+Ectadium_rotundifolium ,0,4,3.502,Grass,Vegetated_patch,17.17,17.43,17.17,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,17.19,17.44,17.19,0
+Ectadium_rotundifolium ,0,4,3.9321,Grass,Unvegetated_patch,17.16,17.4,17.16,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,17.22,17.46,17.22,0
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,17.21,17.46,17.22,0.01
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,18.76,19.03,18.76,0
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,17.55,17.8,17.55,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,18.62,18.87,18.63,0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,19.13,19.38,19.12,-0.01
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,17.95,18.2,17.93,-0.02
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,17.2,17.45,17.2,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,17.43,17.69,17.43,0
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,17.52,17.77,17.54,0.02
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,16.52,16.77,16.53,0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,16.38,16.63,16.38,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,17.45,17.7,17.44,-0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,16.68,16.93,16.67,-0.01
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,20.05,20.3,20.04,-0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,17.24,17.5,17.22,-0.02
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,39.34,39.59,39.34,0
+Ectadium_rotundifolium ,0,4,4,Grass,Vegetated_patch,42.32,42.57,42.32,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Vegetated_patch,40.44,40.69,40.43,-0.01
+Ectadium_rotundifolium ,0,4,4,Grass,Unvegetated_patch,39.52,39.78,39.52,0
+Ectadium_rotundifolium ,0,4,4,Shrub,Unvegetated_patch,36.35,36.6,36.34,-0.01
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,38.29,38.54,38.29,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,62.11,62.37,62.1,-0.01
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,58.39,58.64,58.39,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,51.7,51.95,51.71,0.01
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,53.53,53.79,53.53,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,17.65,17.91,17.65,0
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,17.12,17.33,17.13,0.01
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,18.82,19.08,18.82,0
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,16.32,16.56,16.32,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,17.19,17.43,17.2,0.01
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,18.76,19.03,18.76,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,19.12,19.37,19.13,0.01
+Salsola_nollothensis,0,4,3.5621,Grass,Vegetated_patch,17.32,17.78,17.32,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,17.3,17.47,17.3,0
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,17.24,17.5,17.24,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,17.14,17.39,17.14,0
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,16.68,16.94,16.68,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,17.64,17.89,17.64,0
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,20.15,20.6,20.15,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,53.6,53.85,53.61,0.01
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,51.86,52.1,51.86,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,36.47,36.67,36.47,0
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,39.59,39.84,39.59,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,42.45,42.7,42.45,0
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,39.43,39.68,39.43,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,38.26,38.53,38.26,0
+Salsola_nollothensis,0,4,3.5231,Grass,Unvegetated_patch,40.4,40.65,40.4,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,58.52,58.77,58.51,-0.01
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,62.2,62.46,62.2,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,16.37,16.62,16.36,-0.01
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,40.48,40.73,40.48,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,38.29,38.54,38.3,0.01
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,58.39,58.64,58.39,0
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,62.11,62.36,62.12,0.01
+Salsola_nollothensis,0,4,4,Grass,Unvegetated_patch,39.53,39.78,39.53,0
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,42.52,42.67,42.51,-0.01
+Salsola_nollothensis,0,4,4,Grass,Vegetated_patch,16.41,16.56,16.43,0.02
+Salsola_nollothensis,0,4,4,Shrub,Vegetated_patch,16.38,16.63,16.38,0
+Salsola_nollothensis,0,4,3.7901,Grass,Unvegetated_patch,16.67,16.92,16.66,-0.01
+Salsola_nollothensis,0,4,4,Shrub,Unvegetated_patch,17.2,17.45,17.21,0.01
+Arthraerua_leubnitziae ,4,4,NA,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Arthraerua_leubnitziae ,4,4,4.8686,Grass,Vegetated_patch,53.63,53.88,53.72,0.09
+Arthraerua_leubnitziae ,4,4,4.3776,Shrub,Vegetated_patch,62.19,62.35,62.25,0.06
+Arthraerua_leubnitziae ,4,4,3.7129,Grass,Vegetated_patch,58.38,58.63,58.41,0.03
+Arthraerua_leubnitziae ,8,4,3.3848,Shrub,Vegetated_patch,39.5,39.75,39.52,0.02
+Arthraerua_leubnitziae ,8,4,3.198,Grass,Vegetated_patch,36.44,36.69,36.45,0.01
+Arthraerua_leubnitziae ,8,4,3.8704,Shrub,Unvegetated_patch,39.43,39.68,39.5,0.07
+Arthraerua_leubnitziae ,8,4,3.0335,Grass,Unvegetated_patch,42.42,42.68,42.44,0.02
+Arthraerua_leubnitziae ,4,4,4.4428,Shrub,Unvegetated_patch,16.31,16.56,16.42,0.11
+Arthraerua_leubnitziae ,4,4,3.5341,Grass,Unvegetated_patch,16.38,16.63,16.4,0.02
+Arthraerua_leubnitziae ,4,4,4.8949,Shrub,Vegetated_patch,16.67,16.92,16.82,0.15
+Arthraerua_leubnitziae ,4,4,3.1901,Grass,Vegetated_patch,17.42,17.68,17.44,0.02
+Arthraerua_leubnitziae ,4,4,4.1765,Shrub,Vegetated_patch,17.12,17.36,17.22,0.1
+Arthraerua_leubnitziae ,4,4,3.6615,Grass,Vegetated_patch,17.15,17.4,17.21,0.06
+Arthraerua_leubnitziae ,4,4,5.3926,Shrub,Vegetated_patch,17.24,17.49,17.42,0.18
+Arthraerua_leubnitziae ,4,4,4.6544,Grass,Vegetated_patch,18.76,19.02,18.87,0.11
+Arthraerua_leubnitziae ,4,4,4.6885,Shrub,Vegetated_patch,19.12,19.36,19.19,0.07
+Arthraerua_leubnitziae ,4,4,4.9452,Grass,Vegetated_patch,17.25,17.5,17.37,0.12
+Arthraerua_leubnitziae ,4,4,4.19,Shrub,Unvegetated_patch,17.18,17.43,17.32,0.14
+Arthraerua_leubnitziae ,4,4,4.0843,Shrub,Unvegetated_patch,42.42,42.67,42.56,0.14
+Arthraerua_leubnitziae ,8,4,3.6213,Shrub,Vegetated_patch,38.28,38.53,38.37,0.09
+Arthraerua_leubnitziae ,4,4,4.6295,Shrub,Vegetated_patch,58.39,58.64,58.52,0.13
+Arthraerua_leubnitziae ,8,4,3.3245,Shrub,Unvegetated_patch,16.69,16.94,16.74,0.05
+Arthraerua_leubnitziae ,8,4,3.5543,Shrub,Unvegetated_patch,17.13,17.38,17.19,0.06
+Arthraerua_leubnitziae ,8,4,4.0829,Grass,Unvegetated_patch,17.99,18.24,18.09,0.1
+Arthraerua_leubnitziae ,8,4,4.9055,Shrub,Vegetated_patch,62.11,62.36,62.26,0.15
+Arthraerua_leubnitziae ,8,4,3.1884,Grass,Vegetated_patch,58.39,58.64,58.4,0.01
+Arthraerua_leubnitziae ,8,4,4.8282,Shrub,Vegetated_patch,17.65,17.89,17.78,0.13
+Arthraerua_leubnitziae ,8,4,3.7082,Grass,Vegetated_patch,16.38,16.62,16.4,0.02
+Arthraerua_leubnitziae ,8,4,4.0139,Shrub,Unvegetated_patch,16.69,16.94,16.8,0.11
+Arthraerua_leubnitziae ,8,4,3.0451,Grass,Unvegetated_patch,20.15,20.4,20.18,0.03
+Arthraerua_leubnitziae ,8,4,4.2872,Shrub,Vegetated_patch,17.24,17.49,17.33,0.09
+Arthraerua_leubnitziae ,8,4,3.1407,Grass,Vegetated_patch,16.32,16.56,16.33,0.01
+Arthraerua_leubnitziae ,8,4,3.4785,Shrub,Unvegetated_patch,51.85,52.1,51.88,0.03
+Arthraerua_leubnitziae ,8,4,3.4793,Grass,Unvegetated_patch,53.58,53.82,53.59,0.01
+Arthraerua_leubnitziae ,8,4,4.36,Shrub,Unvegetated_patch,16.31,16.55,16.45,0.14
+Arthraerua_leubnitziae ,8,4,4.536,Grass,Unvegetated_patch,17.65,17.88,17.76,0.11
+Arthraerua_leubnitziae ,8,4,3.6561,Shrub,Unvegetated_patch,18.76,19.03,18.82,0.06
+Arthraerua_leubnitziae ,8,4,3.9324,Grass,Unvegetated_patch,17.65,17.9,17.75,0.1
+Arthraerua_leubnitziae ,8,4,4.3745,Shrub,Vegetated_patch,38.29,38.55,38.43,0.14
+Arthraerua_leubnitziae ,8,4,3.8501,Grass,Vegetated_patch,36.42,36.71,36.49,0.07
+Arthraerua_leubnitziae ,8,4,3.3739,Shrub,Vegetated_patch,62.12,62.34,62.2,0.08
+Arthraerua_leubnitziae ,8,4,3.9782,Grass,Vegetated_patch,58.4,58.63,58.49,0.09
+Arthraerua_leubnitziae ,8,4,4.9901,Grass,Unvegetated_patch,16.69,16.94,16.88,0.19
+Arthraerua_leubnitziae ,8,4,3.6794,Shrub,Unvegetated_patch,16.38,16.63,16.45,0.07
+Arthraerua_leubnitziae ,8,4,3.3245,Shrub,Unvegetated_patch,40.4,40.65,40.46,0.06
+Arthraerua_leubnitziae ,8,4,3.6586,Shrub,Unvegetated_patch,51.8,52.05,51.86,0.06
+Arthraerua_leubnitziae ,8,4,4.7025,Grass,Unvegetated_patch,53.53,53.79,53.65,0.12
+Arthraerua_leubnitziae ,8,4,5.2318,Grass,Vegetated_patch,18.82,19.09,19.01,0.19
+Arthraerua_leubnitziae ,8,4,4.5504,Shrub,Vegetated_patch,16.32,16.56,16.45,0.13
+Arthraerua_leubnitziae ,8,4,3.4785,Shrub,Unvegetated_patch,17.18,17.44,17.25,0.07
+Arthraerua_leubnitziae ,8,4,3.4793,Grass,Unvegetated_patch,18.77,19.03,18.84,0.07
+Arthraerua_leubnitziae ,8,4,3.9462,Shrub,Unvegetated_patch,19.12,19.37,19.21,0.09
+Arthraerua_leubnitziae ,8,4,3.3847,Grass,Unvegetated_patch,17.42,17.68,17.49,0.07
+Arthraerua_leubnitziae ,8,4,3.6794,Shrub,Unvegetated_patch,17.14,17.39,17.21,0.07
+Arthraerua_leubnitziae ,8,4,4.9901,Grass,Unvegetated_patch,16.38,16.62,16.53,0.15
+Arthraerua_leubnitziae ,8,4,4.0139,Shrub,Unvegetated_patch,38.29,38.54,38.4,0.11
+Arthraerua_leubnitziae ,8,4,3.0451,Shrub,Unvegetated_patch,17.42,17.67,17.48,0.06
+Arthraerua_leubnitziae ,4,4,4.932,Grass,Unvegetated_patch,17.65,17.9,17.79,0.14
+Arthraerua_leubnitziae ,4,4,7.6294,Shrub,Unvegetated_patch,17.42,17.8,17.68,0.26
+Arthraerua_leubnitziae ,4,4,3.6113,Grass,Unvegetated_patch,38.28,38.53,38.29,0.01
+Arthraerua_leubnitziae ,4,4,4.0909,Shrub,Vegetated_patch,53.63,53.88,53.76,0.13
+Arthraerua_leubnitziae ,8,4,5.1729,Grass,Vegetated_patch,62.1,62.35,62.29,0.19
+Arthraerua_leubnitziae ,8,4,4.942,Shrub,Vegetated_patch,58.37,58.62,58.56,0.19
+Ectadium_rotundifolium ,4,4,4.9267,Grass,Vegetated_patch,16.69,16.94,16.85,0.16
+Ectadium_rotundifolium ,4,4,4.285,Shrub,Vegetated_patch,17.14,17.39,17.28,0.14
+Ectadium_rotundifolium ,8,4,4.4092,Shrub,Unvegetated_patch,17.24,17.49,17.37,0.13
+Ectadium_rotundifolium ,8,4,5.2305,Grass,Unvegetated_patch,17.99,18.23,18.16,0.17
+Ectadium_rotundifolium ,8,4,4.808,Shrub,Unvegetated_patch,18.09,18.34,18.23,0.14
+Ectadium_rotundifolium ,8,4,4.2059,Grass,Unvegetated_patch,18.83,19.08,18.94,0.11
+Ectadium_rotundifolium ,4,4,5.8259,Shrub,Unvegetated_patch,17.42,17.67,17.58,0.16
+Ectadium_rotundifolium ,4,4,3.8151,Grass,Unvegetated_patch,16.31,16.55,16.33,0.02
+Ectadium_rotundifolium ,4,4,4.196,Shrub,Unvegetated_patch,16.38,16.63,16.49,0.11
+Ectadium_rotundifolium ,4,4,3.2038,Grass,Unvegetated_patch,17.24,17.49,17.27,0.03
+Ectadium_rotundifolium ,4,4,4.3179,Shrub,Unvegetated_patch,16.67,16.92,16.78,0.11
+Ectadium_rotundifolium ,4,4,4.691,Grass,Unvegetated_patch,17.14,17.39,17.26,0.12
+Ectadium_rotundifolium ,4,4,4.0377,Shrub,Vegetated_patch,40.4,40.65,40.52,0.12
+Ectadium_rotundifolium ,8,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,8,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,4,4,3.908,Shrub,Unvegetated_patch,42.43,42.68,42.46,0.03
+Ectadium_rotundifolium ,4,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,4,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,4,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,4,4,4.1618,Shrub,Unvegetated_patch,53.59,53.85,53.72,0.13
+Ectadium_rotundifolium ,4,4,3.0427,Grass,Unvegetated_patch,51.86,52.1,51.88,0.02
+Ectadium_rotundifolium ,4,4,5.0699,Shrub,Vegetated_patch,17.15,17.41,17.32,0.17
+Ectadium_rotundifolium ,4,4,4.2777,Shrub,Vegetated_patch,17.64,17.9,17.76,0.12
+Ectadium_rotundifolium ,4,4,4.0909,Grass,Vegetated_patch,18.77,19.02,18.85,0.08
+Ectadium_rotundifolium ,8,4,4.989,Shrub,Vegetated_patch,16.67,16.93,16.83,0.16
+Ectadium_rotundifolium ,8,4,3.9141,Grass,Vegetated_patch,17.11,17.36,17.17,0.06
+Ectadium_rotundifolium ,8,4,4.4663,Grass,Vegetated_patch,39.5,39.75,39.63,0.13
+Ectadium_rotundifolium ,8,4,3.636,Shrub,Vegetated_patch,39.43,39.67,39.48,0.05
+Ectadium_rotundifolium ,8,4,4.1816,Shrub,Vegetated_patch,53.59,53.84,53.71,0.12
+Ectadium_rotundifolium ,8,4,3.0586,Grass,Vegetated_patch,51.86,52.11,51.88,0.02
+Ectadium_rotundifolium ,4,4,4.4979,Grass,Unvegetated_patch,18.08,18.34,18.22,0.14
+Ectadium_rotundifolium ,4,4,5.9633,Shrub,Unvegetated_patch,17.16,17.43,17.33,0.17
+Ectadium_rotundifolium ,8,4,4.297,Shrub,Vegetated_patch,17.11,17.36,17.23,0.12
+Ectadium_rotundifolium ,8,4,4.4427,Shrub,Unvegetated_patch,17.99,18.24,18.12,0.13
+Ectadium_rotundifolium ,8,4,3.7837,Grass,Unvegetated_patch,16.69,16.95,16.73,0.04
+Ectadium_rotundifolium ,4,4,3.3982,Shrub,Vegetated_patch,16.69,16.97,16.72,0.03
+Ectadium_rotundifolium ,8,4,4.8233,Shrub,Unvegetated_patch,38.3,38.54,38.45,0.15
+Ectadium_rotundifolium ,8,4,3.569,Grass,Unvegetated_patch,36.42,36.69,36.46,0.04
+Ectadium_rotundifolium ,8,4,4.4585,Shrub,Vegetated_patch,39.43,39.68,39.59,0.16
+Ectadium_rotundifolium ,8,4,4.7552,Shrub,Vegetated_patch,53.52,53.8,53.68,0.16
+Ectadium_rotundifolium ,8,4,3.5295,Grass,Vegetated_patch,51.8,52.06,51.88,0.08
+Ectadium_rotundifolium ,8,4,2.6749,Shrub,Unvegetated_patch,18,18.25,18.01,0.01
+Ectadium_rotundifolium ,4,4,3.9576,Shrub,Unvegetated_patch,17.15,17.4,17.21,0.06
+Ectadium_rotundifolium ,8,4,4.808,Grass,Unvegetated_patch,16.38,16.63,16.48,0.1
+Ectadium_rotundifolium ,8,4,4.2059,Shrub,Unvegetated_patch,17.11,17.37,17.2,0.09
+Ectadium_rotundifolium ,8,4,4.0034,Shrub,Vegetated_patch,17.18,17.44,17.28,0.1
+Ectadium_rotundifolium ,8,4,3.5634,Grass,Vegetated_patch,18.71,19.02,18.75,0.04
+Ectadium_rotundifolium ,8,4,4.5329,Shrub,Vegetated_patch,17.24,17.49,17.38,0.14
+Ectadium_rotundifolium ,8,4,4.1864,Grass,Vegetated_patch,17.99,18.23,18.12,0.13
+Ectadium_rotundifolium ,4,4,4.2704,Shrub,Vegetated_patch,16.67,16.92,16.82,0.15
+Ectadium_rotundifolium ,4,4,5.4893,Shrub,Vegetated_patch,19.12,19.37,19.28,0.16
+Ectadium_rotundifolium ,8,4,3.6451,Grass,Vegetated_patch,17.65,17.9,17.69,0.04
+Ectadium_rotundifolium ,8,4,3.4167,Shrub,Vegetated_patch,53.57,53.81,53.59,0.02
+Ectadium_rotundifolium ,4,4,4.1055,Shrub,Vegetated_patch,17.24,17.49,17.37,0.13
+Ectadium_rotundifolium ,4,4,3.776,Grass,Vegetated_patch,17.14,17.39,17.23,0.09
+Ectadium_rotundifolium ,4,4,4.1408,Shrub,Vegetated_patch,53.5,53.76,53.55,0.05
+Ectadium_rotundifolium ,4,4,3.2638,Grass,Vegetated_patch,51.92,52.17,51.96,0.04
+Ectadium_rotundifolium ,4,4,4.196,Shrub,Unvegetated_patch,39.43,39.68,39.55,0.12
+Ectadium_rotundifolium ,4,4,3.2038,Grass,Unvegetated_patch,39.5,39.76,39.54,0.04
+Ectadium_rotundifolium ,4,4,4.1455,Shrub,Unvegetated_patch,42.29,42.69,42.38,0.09
+Ectadium_rotundifolium ,4,4,3.5294,Grass,Unvegetated_patch,36.44,36.69,36.47,0.03
+Salsola_nollothensis,4,4,4.1395,Shrub,Vegetated_patch,17.65,17.9,17.74,0.09
+Salsola_nollothensis,4,4,4.1621,Grass,Vegetated_patch,17.11,17.37,17.18,0.07
+Salsola_nollothensis,4,4,4.0205,Shrub,Unvegetated_patch,17.18,17.44,17.26,0.08
+Salsola_nollothensis,4,4,4.0853,Grass,Unvegetated_patch,18.71,19.02,18.78,0.07
+Salsola_nollothensis,4,4,4.245,Shrub,Vegetated_patch,19.12,19.37,19.19,0.07
+Salsola_nollothensis,4,4,4.0882,Grass,Vegetated_patch,17.15,17.4,17.17,0.02
+Salsola_nollothensis,4,4,4.0678,Shrub,Vegetated_patch,51.97,52.12,52.01,0.04
+Salsola_nollothensis,4,4,4.0531,Grass,Vegetated_patch,17.25,17.51,17.32,0.07
+Salsola_nollothensis,8,4,3.0561,Shrub,Vegetated_patch,40.4,40.66,40.43,0.03
+Salsola_nollothensis,8,4,6.5728,Grass,Vegetated_patch,38.29,38.54,38.49,0.2
+Salsola_nollothensis,8,4,4.8861,Shrub,Vegetated_patch,58.39,58.64,58.54,0.15
+Salsola_nollothensis,8,4,4.7713,Grass,Vegetated_patch,62.11,62.36,62.21,0.1
+Salsola_nollothensis,4,4,4.8829,Shrub,Unvegetated_patch,17.25,17.49,17.39,0.14
+Salsola_nollothensis,4,4,4.0015,Grass,Unvegetated_patch,18.83,19.09,18.86,0.03
+Salsola_nollothensis,4,4,4.026,Shrub,Vegetated_patch,19.13,19.37,19.15,0.02
+Salsola_nollothensis,4,4,4.453,Grass,Vegetated_patch,18.09,18.34,18.11,0.02
+Salsola_nollothensis,8,4,4.2443,Shrub,Vegetated_patch,20.15,20.4,20.3,0.15
+Salsola_nollothensis,8,4,4.2257,Grass,Vegetated_patch,17.25,17.51,17.28,0.03
+Salsola_nollothensis,4,4,4.4333,Shrub,Unvegetated_patch,36.44,36.7,36.56,0.12
+Salsola_nollothensis,4,4,6.0968,Grass,Unvegetated_patch,38.29,38.52,38.49,0.2
+Salsola_nollothensis,4,4,4.0055,Grass,Unvegetated_patch,42.42,42.68,42.43,0.01
+Salsola_nollothensis,4,4,3.9307,Shrub,Unvegetated_patch,40.4,40.66,40.47,0.07
+Salsola_nollothensis,8,4,3.369,Shrub,Unvegetated_patch,17.42,17.67,17.58,0.16
+Salsola_nollothensis,8,4,4.8522,Grass,Unvegetated_patch,17.18,17.42,17.28,0.1
+Salsola_nollothensis,8,4,3.642,Grass,Unvegetated_patch,18.76,19.02,18.82,0.06
+Salsola_nollothensis,8,4,5.0224,Shrub,Unvegetated_patch,16.67,16.94,16.83,0.16
+Salsola_nollothensis,8,4,4.0773,Shrub,Unvegetated_patch,19.12,19.38,19.22,0.1
+Salsola_nollothensis,8,4,3.9342,Grass,Unvegetated_patch,17.25,17.52,17.32,0.07
+Salsola_nollothensis,4,4,4.1621,Grass,Vegetated_patch,18.84,19.09,18.86,0.02
+Salsola_nollothensis,4,4,4.1395,Shrub,Vegetated_patch,17.98,18.26,18.06,0.08
+Salsola_nollothensis,4,4,4.0678,Shrub,Vegetated_patch,36.43,36.65,36.45,0.02
+Salsola_nollothensis,4,4,4.0531,Grass,Vegetated_patch,39.43,39.68,39.43,0
+Salsola_nollothensis,4,4,4.1178,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,4,4,4.6849,Grass,Vegetated_patch,39.5,39.75,39.5,0
+Salsola_nollothensis,4,4,3.9664,Grass,Vegetated_patch,40.4,40.65,40.41,0.01
+Salsola_nollothensis,4,4,4.1388,Shrub,Vegetated_patch,42.42,42.67,42.56,0.14
+Salsola_nollothensis,8,4,3.9874,Shrub,Vegetated_patch,62.1,62.36,62.15,0.05
+Salsola_nollothensis,8,4,5.8815,Grass,Vegetated_patch,58.39,58.62,58.49,0.1
+Salsola_nollothensis,4,4,3.4335,Shrub,Vegetated_patch,19.12,19.38,19.17,0.05
+Salsola_nollothensis,4,4,4.0678,Grass,Vegetated_patch,16.6,16.91,16.68,0.08
+Salsola_nollothensis,4,4,3.7876,Grass,Unvegetated_patch,17.25,17.51,17.27,0.02
+Salsola_nollothensis,4,4,3.9149,Shrub,Unvegetated_patch,18.76,19.02,18.82,0.06
+Salsola_nollothensis,4,4,3.6748,Grass,Unvegetated_patch,18.08,18.32,18.12,0.04
+Salsola_nollothensis,4,4,4.0114,Shrub,Unvegetated_patch,17.15,17.4,17.24,0.09
+Salsola_nollothensis,4,4,3.3055,Shrub,Unvegetated_patch,17.25,17.49,17.29,0.04
+Salsola_nollothensis,4,4,4.2799,Grass,Unvegetated_patch,17.13,17.39,17.19,0.06
+Salsola_nollothensis,4,4,4.0956,Shrub,Vegetated_patch,17.18,17.43,17.22,0.04
+Salsola_nollothensis,4,4,4.193,Grass,Vegetated_patch,17.42,17.68,17.44,0.02
+Salsola_nollothensis,8,4,4.0666,Shrub,Unvegetated_patch,17.12,17.38,17.25,0.13
+Salsola_nollothensis,8,4,3.9428,Grass,Unvegetated_patch,16.37,16.62,16.41,0.04
+Salsola_nollothensis,8,4,4.2817,Shrub,Unvegetated_patch,20.15,20.4,20.29,0.14
+Salsola_nollothensis,8,4,4.5369,Grass,Unvegetated_patch,18.83,19.09,18.98,0.15
+Salsola_nollothensis,4,4,4.3812,Shrub,Unvegetated_patch,17.25,17.5,17.38,0.13
+Salsola_nollothensis,4,4,4.1251,Grass,Unvegetated_patch,17.14,17.38,17.21,0.07
+Salsola_nollothensis,4,4,4.0072,Grass,Unvegetated_patch,17.18,17.43,17.19,0.01
+Salsola_nollothensis,4,4,4.0918,Shrub,Unvegetated_patch,17.15,17.39,17.29,0.14
+Salsola_nollothensis,4,4,3.6054,Shrub,Vegetated_patch,17.42,17.66,17.5,0.08
+Salsola_nollothensis,4,4,4.1392,Grass,Vegetated_patch,17.11,17.36,17.12,0.01
+Salsola_nollothensis,8,4,5.907,Shrub,Unvegetated_patch,18.82,19.09,18.99,0.17
+Salsola_nollothensis,8,4,4.5199,Grass,Unvegetated_patch,19.12,19.38,19.22,0.1
+Ectadium_rotundifolium ,8,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,8,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,8,4,3.6451,Shrub,Vegetated_patch,53.57,53.81,53.69,0.12
+Ectadium_rotundifolium ,8,4,3.4167,Grass,Vegetated_patch,51.84,52.1,51.84,0
+Salsola_nollothensis,8,4,7.1861,Shrub,Unvegetated_patch,39.43,39.68,39.58,0.15
+Salsola_nollothensis,8,4,3.3258,Grass,Unvegetated_patch,42.43,42.68,42.45,0.02
+Salsola_nollothensis,8,4,4.0497,Grass,Vegetated_patch,18.83,19.09,18.84,0.01
+Salsola_nollothensis,8,4,3.568,Shrub,Vegetated_patch,17.11,17.36,17.16,0.05
+Salsola_nollothensis,8,4,3.9682,Grass,Vegetated_patch,18.09,18.33,18.1,0.01
+Salsola_nollothensis,8,4,5.2812,Shrub,Vegetated_patch,17.25,17.51,17.4,0.15
+Salsola_nollothensis,8,4,3.5961,Shrub,Vegetated_patch,17.25,17.49,17.3,0.05
+Salsola_nollothensis,8,4,4.074,Grass,Vegetated_patch,17.24,17.49,17.25,0.01
+Salsola_nollothensis,8,4,3.3115,Grass,Unvegetated_patch,58.39,58.64,58.45,0.06
+Salsola_nollothensis,8,4,5.1036,Shrub,Unvegetated_patch,62.1,62.36,62.26,0.16
+Salsola_nollothensis,8,4,3.9682,Grass,Vegetated_patch,17.64,17.89,17.66,0.02
+Salsola_nollothensis,8,4,3.2274,Shrub,Vegetated_patch,17.14,17.37,17.18,0.04
+Salsola_nollothensis,8,4,5.0975,Shrub,Vegetated_patch,17.18,17.43,17.33,0.15
+Salsola_nollothensis,8,4,4.0529,Grass,Vegetated_patch,17.42,17.68,17.42,0
+Salsola_nollothensis,4,4,4.4333,Shrub,Vegetated_patch,16.7,16.94,16.86,0.16
+Salsola_nollothensis,4,4,4.0092,Grass,Vegetated_patch,16.38,16.64,16.39,0.01
+Salsola_nollothensis,8,4,3.7951,Grass,Unvegetated_patch,42.42,42.68,42.49,0.07
+Salsola_nollothensis,8,4,3.9766,Shrub,Unvegetated_patch,40.4,40.66,40.48,0.08
+Salsola_nollothensis,8,4,4.4663,Shrub,Vegetated_patch,17.25,17.51,17.35,0.1
+Salsola_nollothensis,8,4,3.636,Grass,Vegetated_patch,18.76,19.02,18.84,0.08
+Arthraerua_leubnitziae ,14,4,6.5305,Shrub,Vegetated_patch,17.13,17.38,17.29,0.16
+Arthraerua_leubnitziae ,14,4,4.0546,Grass,Vegetated_patch,17.24,17.51,17.26,0.02
+Arthraerua_leubnitziae ,14,4,3.802,Shrub,Vegetated_patch,17.24,17.5,17.3,0.06
+Arthraerua_leubnitziae ,14,4,4.5663,Shrub,Vegetated_patch,16.37,16.62,16.48,0.11
+Arthraerua_leubnitziae ,14,4,6.5305,Shrub,Vegetated_patch,36.43,36.69,36.61,0.18
+Arthraerua_leubnitziae ,14,4,3.9913,Shrub,Unvegetated_patch,17.65,17.91,17.7,0.05
+Arthraerua_leubnitziae ,14,4,3.9144,Shrub,Vegetated_patch,17.64,17.89,17.69,0.05
+Arthraerua_leubnitziae ,14,4,3.9036,Grass,Vegetated_patch,20.15,20.4,20.18,0.03
+Arthraerua_leubnitziae ,14,4,5.6345,Shrub,Vegetated_patch,17.25,17.51,17.4,0.15
+Arthraerua_leubnitziae ,14,4,4.4602,Shrub,Unvegetated_patch,17.99,18.24,18.04,0.05
+Arthraerua_leubnitziae ,14,4,3.0587,Grass,Unvegetated_patch,18.09,18.36,18.11,0.02
+Arthraerua_leubnitziae ,14,4,7.056,Shrub,Vegetated_patch,39.5,39.75,39.78,0.28
+Arthraerua_leubnitziae ,14,4,4.101,Shrub,Unvegetated_patch,38.29,38.54,38.35,0.06
+Arthraerua_leubnitziae ,14,4,5.4384,Grass,Vegetated_patch,20.15,20.4,20.26,0.11
+Arthraerua_leubnitziae ,14,4,3.9052,Shrub,Vegetated_patch,17.24,17.5,17.29,0.05
+Arthraerua_leubnitziae ,14,4,4.8794,Shrub,Unvegetated_patch,20.15,20.41,20.21,0.06
+Arthraerua_leubnitziae ,14,4,6.0269,Grass,Unvegetated_patch,62.11,62.37,62.29,0.18
+Arthraerua_leubnitziae ,14,4,5.8244,Shrub,Vegetated_patch,19.12,19.38,19.27,0.15
+Arthraerua_leubnitziae ,14,4,4.2848,Grass,Vegetated_patch,17.42,17.68,17.43,0.01
+Arthraerua_leubnitziae ,14,4,3.6437,Shrub,Vegetated_patch,18.78,19.02,18.85,0.07
+Arthraerua_leubnitziae ,14,4,3.9526,Grass,Vegetated_patch,17.14,17.39,17.17,0.03
+Arthraerua_leubnitziae ,14,4,4.4125,Shrub,Unvegetated_patch,17.99,18.24,18.06,0.07
+Arthraerua_leubnitziae ,14,4,NA,Grass,Vegetated_patch,NA,NA,NA,#VALUE!
+Arthraerua_leubnitziae ,14,4,NA,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,3.3982,Shrub,Vegetated_patch,18.83,19.08,18.85,0.02
+Ectadium_rotundifolium ,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,2.3751,Grass,Vegetated_patch,18.77,19.01,18.79,0.02
+Ectadium_rotundifolium ,14,4,3.0135,Shrub,Vegetated_patch,17.18,17.44,17.26,0.08
+Ectadium_rotundifolium ,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,3.4521,Shrub,Vegetated_patch,20.15,20.42,20.17,0.02
+Ectadium_rotundifolium ,14,4,3.6452,Grass,Vegetated_patch,16.69,16.94,16.79,0.1
+Ectadium_rotundifolium ,14,4,3.8003,Grass,Unvegetated_patch,16.67,16.93,16.75,0.08
+Ectadium_rotundifolium ,14,4,3.5303,Shrub,Unvegetated_patch,20.14,20.43,20.35,0.21
+Ectadium_rotundifolium ,14,4,3.7386,Shrub,Unvegetated_patch,16.38,16.64,16.55,0.17
+Ectadium_rotundifolium ,14,4,3.5952,Grass,Unvegetated_patch,17.13,17.39,17.2,0.07
+Ectadium_rotundifolium ,14,4,NA,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,NA,Grass,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,3.4167,Grass,Unvegetated_patch,42.42,42.69,42.45,0.03
+Ectadium_rotundifolium ,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,NA,Grass,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,NA,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,6.88,Shrub,Vegetated_patch,18.83,19.08,18.95,0.12
+Ectadium_rotundifolium ,14,4,NA,Grass,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,5.0567,Shrub,Unvegetated_patch,58.39,58.65,58.53,0.14
+Ectadium_rotundifolium ,14,4,4.9132,Shrub,Unvegetated_patch,17.18,17.44,17.28,0.1
+Ectadium_rotundifolium ,14,4,5.2868,Shrub,Vegetated_patch,51.81,52.05,51.92,0.11
+Ectadium_rotundifolium ,14,4,5.7424,Grass,Vegetated_patch,53.54,53.81,53.65,0.11
+Ectadium_rotundifolium ,14,4,6.0218,Shrub,Vegetated_patch,16.67,16.92,16.88,0.21
+Ectadium_rotundifolium ,14,4,4.3677,Grass,Vegetated_patch,20.15,20.39,20.18,0.03
+Ectadium_rotundifolium ,14,4,3.23,Grass,Unvegetated_patch,16.31,16.56,16.33,0.02
+Ectadium_rotundifolium ,14,4,6.1866,Shrub,Unvegetated_patch,19.12,19.37,19.4,0.28
+Ectadium_rotundifolium ,14,4,NA,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Ectadium_rotundifolium ,14,4,NA,Grass,Vegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,3.464,Shrub,Vegetated_patch,17.99,18.25,18.12,0.13
+Salsola_nollothensis,14,4,3.3383,Shrub,Unvegetated_patch,18.76,19.02,18.88,0.12
+Salsola_nollothensis,14,4,6.3811,Shrub,Unvegetated_patch,18.83,19.08,19.11,0.28
+Salsola_nollothensis,14,4,4.7319,Shrub,Vegetated_patch,39.5,39.75,39.66,0.16
+Salsola_nollothensis,14,4,NA,Shrub,Vegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,NA,Grass,Vegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,6.2521,Grass,Unvegetated_patch,20.15,20.4,20.36,0.21
+Salsola_nollothensis,14,4,4.2115,Shrub,Unvegetated_patch,36.44,36.68,36.56,0.12
+Salsola_nollothensis,14,4,6.6767,Grass,Unvegetated_patch,42.42,42.66,42.62,0.2
+Salsola_nollothensis,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,6.2662,Shrub,Vegetated_patch,17.99,18.24,18.2,0.21
+Salsola_nollothensis,14,4,6.6586,Grass,Vegetated_patch,20.15,20.4,20.38,0.23
+Salsola_nollothensis,14,4,5.2065,Grass,Unvegetated_patch,39.51,39.75,39.68,0.17
+Salsola_nollothensis,14,4,3.4778,Shrub,Vegetated_patch,16.67,16.92,16.71,0.04
+Salsola_nollothensis,14,4,5.12,Grass,Vegetated_patch,17.24,17.49,17.45,0.21
+Salsola_nollothensis,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,5.1386,Shrub,Vegetated_patch,18.09,18.33,18.31,0.22
+Salsola_nollothensis,14,4,6.0194,Grass,Vegetated_patch,17.14,17.4,17.26,0.12
+Salsola_nollothensis,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,7.3155,Grass,Vegetated_patch,38.3,38.54,38.53,0.23
+Salsola_nollothensis,14,4,4.633,Shrub,Vegetated_patch,39.51,39.75,39.65,0.14
+Salsola_nollothensis,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,NA,Shrub,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,4.4347,Grass,Unvegetated_patch,16.67,16.93,16.69,0.02
+Salsola_nollothensis,14,4,3.5475,Shrub,Vegetated_patch,17.18,17.44,17.2,0.02
+Salsola_nollothensis,14,4,5.9153,Grass,Vegetated_patch,17.24,17.5,17.34,0.1
+Salsola_nollothensis,14,4,4.5006,Shrub,Vegetated_patch,16.68,16.94,16.84,0.16
+Salsola_nollothensis,14,4,6.4242,Grass,Vegetated_patch,16.38,16.65,16.48,0.1
+Salsola_nollothensis,14,4,NA,Grass,Unvegetated_patch,NA,NA,NA,#VALUE!
+Salsola_nollothensis,14,4,7.3957,Shrub,Unvegetated_patch,18.09,18.33,18.32,0.23
