@@ -44,9 +44,10 @@ print(T0means)
 hist(Litter_T0$trsptloss_pct)
 # check for normality of distribution of transport losses
 qqnorm(Litter_T0$trsptloss_pct)
-qqline(Litter_T0$trsptloss_pct) # visualize the data - if normal the data should fall fairly 
+qqline(Litter_T0$trsptloss_pct) # visualize the data - if normal the data should fall fairly closely to the line 
 
-### Given the oddity of transport loss distribution, I don't see a complelling arguement for a transport loss correction 
+### HT: Given the oddity of transport loss distribution, I don't see a compelling arguement for a transport loss correction 
+
 # create new variable final litter mass, corrected for transport loss (final_litter_corr)
 # apply a species-specific transport loss correction using mutate and multiple if else conditions
 #Litter <- mutate(Litter, Initial_mass_corr = ifelse(Litter_substrate == "Grass", Initial_mass * 0.9920,
@@ -61,6 +62,7 @@ qqline(Litter_T0$trsptloss_pct) # visualize the data - if normal the data should
 # Calculate ash-free masses and ash-free mass remaining -----------------------------------------
 
 # calculate percent ash of the litter for all litterbags
+
 ### HT: Note that percent ash seems very low for time 0 -- these should be double-checked to increase our confidence
 Litter <- Litter |>
   mutate(
@@ -69,7 +71,7 @@ Litter <- Litter |>
     pct_ash = (ash_mass/sample_mass)*100
   )
 
-# pull the mean pct_ash values from the time 0 means for each of two litter substrates
+# calculate mean pct_ash values from the time 0 means for each of two litter substrates
 pct_ash_means <- Litter |>
   group_by(Litter_substrate, Month) |>
   summarise(
@@ -89,7 +91,7 @@ Litter <- Litter |>
                                    Initial_mass * (100 - grass_initial_pctash) / 100, 
                                    ifelse(Litter_substrate == "Shrub", 
                                           Initial_mass * (100 - shrub_initial_pctash) / 100, 
-                                          NA)), # use NA for other cases
+                                          NA)), # use NA for (non-existent) other cases
     Final_mass_ash_free = Lbag_weight * (100 - pct_ash) / 100,
     Pct_mass_remaining_ashfree = Final_mass_ash_free/Initial_mass_ash_free *100
   ) 
