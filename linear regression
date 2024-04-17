@@ -1,15 +1,10 @@
-Litter170424 <- Litter170424 %>%
-  filter(Litter_substrate == "Shrub")
-
-library(dplyr)
-
+##Linear regression for shrub litter
 # Subset data where Litter_substrate is "Shrub"
 shrub_data <- Litter170424 %>%
   filter(Litter_substrate == "Shrub")
 
 # Plotting
 pd <- position_dodge(0.1)  # Adjust as needed
-
 
 # Perform linear regression separately
 
@@ -37,7 +32,6 @@ regression_data$Ash_free_mass_remaining <- predict(regression_lines, newdata = r
 # Define shapes for months
 month_shapes <- c(16, 18, 15, 17, 20, 21, 22)
 
-
 # Define colors for microsites
 microsite_colors <- c("blue", "brown")
 
@@ -54,8 +48,7 @@ p <- ggplot(shrub_data_filtered, aes(x = pct_ash, y = Ash_free_mass_remaining, c
   theme_classic() +
   scale_color_manual(values = microsite_colors) +
   scale_shape_manual(values = month_shapes) +
-  scale_y_continuous(breaks = seq(0, ceiling(max(shrub_data_filtered$Ash_free_mass_remaining, na.rm = TRUE)), by = 0.5),
-                     labels = seq(0, ceiling(max(shrub_data_filtered$Ash_free_mass_remaining, na.rm = TRUE)), by = 0.5)) +
+  scale_y_continuous(limits = c(30, max(shrub_data_filtered$Ash_free_mass_remaining)), breaks = seq(30, max(shrub_data_filtered$Ash_free_mass_remaining), by = 10))+
   theme(axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
         axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1))
 
@@ -65,4 +58,5 @@ print(p)
 # Add regression lines with different linetypes for each month
 p + 
   geom_smooth(method = "lm", se = FALSE, aes(group = Month, linetype = as.factor(Month)), size = 1, color = "black") +
-  scale_linetype_manual(values = c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash"))  # Add more linetypes as needed
+  scale_linetype_manual(values = c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash")) + # Add more linetypes as needed
+  annotate("text", x = Inf, y = Inf, label = paste("R² =", r_squared), hjust = 1, vjust = 1, size = 4, color = "black")
