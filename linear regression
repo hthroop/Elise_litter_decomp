@@ -59,4 +59,4 @@ print(p)
 p + 
   geom_smooth(method = "lm", se = FALSE, aes(group = Month, linetype = as.factor(Month)), size = 1, color = "black") +
   scale_linetype_manual(values = c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash")) + # Add more linetypes as needed
-  annotate("text", x = Inf, y = Inf, label = paste("R² =", r_squared), hjust = 1, vjust = 1, size = 4, color = "black")
+  annotate("text", x = Inf, y = Inf, label = paste("R² =", r_squared), hjust = 1, vjust = 1, size = 4, color = "black") ##HT, this is the part of the script I need to modify to get fit a single curve to all the data.
