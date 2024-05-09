@@ -2,6 +2,7 @@
 # written Nov 4-6, 2021 HLT
 # Edited Jun 19, 2022 ENN
 # revamped 2024-03-23 HLT
+# added plot with single regression line 2024-05-09 HT
 
 library(tidyverse)
 library(here) # see https://malco.io/articles/2018-11-05-why-should-i-use-the-here-package-when-i-m-already-using-projects
@@ -95,5 +96,50 @@ Litter <- Litter |>
     Final_mass_ash_free = Lbag_weight * (100 - pct_ash) / 100,
     Pct_mass_remaining_ashfree = Final_mass_ash_free/Initial_mass_ash_free *100
   ) 
+
+
+# Regression line and plot for shrub data ---------------------------------
+
+# Subset data where Litter_substrate is "Shrub" and remove non-finite pct_ash values
+shrub_data <- Litter |>
+  filter(Litter_substrate == "Shrub") |>
+  filter(is.finite(pct_ash)) 
+
+# Perform linear regression
+regression_model <- lm(Pct_mass_remaining_ashfree ~ 
+                         pct_ash + microsite + Month, data = shrub_data)
+
+# Calculate R-squared value
+r_squared <- summary(regression_model)$r.squared
+
+# Define shapes for Months
+month_shapes <- c(16, 18, 15, 17, 20, 21, 22) # Assign unique shapes to each Month
+
+# Define colors for microsites
+microsite_colors <- c("blue", "brown") # Assign colors to different microsites
+
+# Pre-compute the maximum y-value to use for y-axis scale
+max_y <- max(shrub_data$Pct_mass_remaining_ashfree, na.rm = TRUE)
+
+# Plotting
+p <- shrub_data |>
+  ggplot(aes(x = pct_ash, y = Pct_mass_remaining_ashfree, 
+             color = factor(microsite), shape = factor(Month))) +
+  geom_point(size = 3) + # Add data points
+  geom_smooth(method = "lm", se = FALSE, color = "black", aes(group = 1)) + # Add a single regression line
+  labs(x = "ash (%)", y = "ash-free mass remaining (%)", 
+       title = "Linear Regression (Shrub Data)") +
+  theme_classic() +
+  scale_color_manual(values = microsite_colors) +
+  scale_shape_manual(values = month_shapes) +
+  scale_y_continuous(
+    limits = c(30, max_y), 
+    breaks = seq(30, max_y, by = 10)
+  ) +
+  theme(axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+        axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)) +
+  annotate("text", x = Inf, y = Inf, label = sprintf("R² = %.2f", r_squared), 
+           hjust = 1, vjust = 1, size = 4, color = "black") # Annotate with R-squared
+print(p)
 
 
