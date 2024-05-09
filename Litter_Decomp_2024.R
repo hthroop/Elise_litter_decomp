@@ -2,7 +2,7 @@
 # written Nov 4-6, 2021 HLT
 # Edited Jun 19, 2022 ENN
 # revamped 2024-03-23 HLT
-# added plot with single regression line 2024-05-09 HT
+# added plot with single regression line 2024-05-09 HT 
 
 library(tidyverse)
 library(here) # see https://malco.io/articles/2018-11-05-why-should-i-use-the-here-package-when-i-m-already-using-projects
