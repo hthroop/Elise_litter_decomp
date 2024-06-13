@@ -1,0 +1,13 @@
+# Define a function to fit the model and extract coefficients for each group
+get_coefficients <- function(data) {
+  model <- lm(log(Ash_free_mass_remaining) ~ Year, data = K_litter)
+  data.frame(Coefficients = names(coef(model)), Estimate = coef(model))
+}
+
+# Apply the function to each unique hummock
+coef_df <- K_litter %>%
+  group_by(unique_hummock) %>%
+  do(get_coefficients(.))
+
+# Convert to data frame if needed
+coef_df <- as.data.frame(coef_df)
