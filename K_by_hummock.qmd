@@ -1,0 +1,85 @@
+---
+title: "K calculations by hummock"
+author: "E Nghalipo and H Throop"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Initial Set Up
+
+```{r}
+#Call in needed packages
+library(tidyverse)
+library(broom)
+
+# Import data
+K_litter = read.csv("Litter080624.csv") 
+
+```
+
+### Data Manipulation
+
+```{r}
+## Here, I added a unique combination column to the dataset called unique hummock. This combination is for the three columns; species, litter_substrate and mmicrosite
+K_litter <- K_litter |>
+  mutate(unique_hummock = group_indices(., Sample_ID, Species, Litter_substrate, microsite))
+
+# Here I convert from months to years
+K_litter$Year <- K_litter$Month/12
+```
+
+## Calculate Ks
+
+```{r}
+# Initialize a list to store the results
+results <- list()
+
+# Loop through each unique_hummock value from 1 to 179
+for (i in 1:179) {
+  # Filter the data for the current unique_hummock value
+  K_litter_i <- K_litter %>%
+    filter(unique_hummock == as.character(i))
+  
+  # Ensure there is more than one data point
+  if (nrow(K_litter_i) > 1) {
+    # Fit the exponential model
+    exponential_model <- lm(log(Ash_free_mass_remaining) ~ Year, data = K_litter_i)
+    
+    # Extract the coefficients and related statistics
+    model_summary <- tidy(exponential_model) %>%
+      mutate(unique_hummock = as.character(i))
+    
+    # Store the result
+    results[[i]] <- model_summary
+  } else {
+    # Store NA results for insufficient data
+    results[[i]] <- data.frame(term = NA, estimate = NA, std.error = NA, statistic = NA, p.value = NA, unique_hummock = as.character(i))
+  }
+}
+
+```
+
+### Compile data and neaten up
+
+```{r}
+# Combine all results into a single data frame
+coef_df <- do.call(rbind, results)
+
+# remove extra lines in the file of coefficients and change data type for unique_hummock
+coef_df <- coef_df |>
+  filter(term == "Year") |>
+  mutate(unique_hummock = as.numeric(unique_hummock))
+```
+
+### Add hummock identifying info
+
+```{r}
+# Select the needed columns from each dataframe and rename the 'estimate' column
+K_by_hummock <- K_litter |>
+  select(unique_hummock, Species, Litter_substrate, microsite) |>
+  inner_join(coef_df %>% select(unique_hummock, K = estimate), 
+             by = "unique_hummock") |>
+  distinct() # remove duplicate rows
+```
