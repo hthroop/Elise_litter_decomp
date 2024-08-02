@@ -1,0 +1,123 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(here) # see https://malco.io/articles/2018-11-05-why-should-i-use-the-here-package-when-i-m-already-using-projects
+library(dplyr)
+library(plyr)
+library("ggplot2")
+```
+
+### Import data, the CSV file...
+
+```{r}
+# Import data, the CSV file...
+Nitrogen <- read.csv("Nitrogen_content.csv")
+```
+
+### Data manipulation
+
+```{r}
+Nitrogen2 <- ddply(Nitrogen, c("Litter_substrate", "Month", "microsite"), summarise,
+                        N    = sum(!is.na(Ash_free_remaining)),
+                        mean_Ash_free_remaining = mean(Ash_free_remaining, na.rm=TRUE),
+                        sd_Ash_free_remaining   = sd(Ash_free_remaining, na.rm=TRUE),
+                        se_Ash_free_remaining   = sd_Ash_free_remaining / sqrt(N))
+```
+
+```{r}
+Nitrogen3 <- ddply(Nitrogen, c("Litter_substrate", "Month", "microsite"), summarise,
+                   N    = sum(!is.na(nitrogen)),
+                   mean_nitrogen = mean(nitrogen, na.rm=TRUE),
+                   sd_nitrogen   = sd(nitrogen, na.rm=TRUE),
+                   se_nitrogen   = sd_nitrogen / sqrt(N))
+```
+
+```{r}
+write.csv(Nitrogen2, file = "Nitrogen2.csv")
+write.csv(Nitrogen3, file = "Nitrogen3.csv")
+Nitrogen4 <- read.csv("Nitrogen3.csv")
+```
+
+### Create plots
+
+```{r}
+# Define the microsites and colors
+microsites_colors <- c("Vegetated" = "blue", "Unvegetated" = "red")
+
+# Define the unique colors for Litter_substrate
+litter_colors <- c("Shrub" = "darkgreen", "Grass" = "darkorange2")
+
+# Filter the data for the microsites
+filtered_data <- subset(Nitrogen4, microsite %in% names(microsites_colors))
+
+p <- ggplot(filtered_data, aes(x = Month, y = mean_nitrogen, shape = Litter_substrate, group = interaction(microsite, Litter_substrate))) +
+  geom_line(aes(color = Litter_substrate, linetype = microsite), position = pd, linewidth = 1) +  # Increase line size to 1.5
+  geom_point(aes(color = Litter_substrate), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_nitrogen - se_nitrogen, ymax = mean_nitrogen + se_nitrogen, color = Litter_substrate), width = 0.5) +  # Set color aesthetic to Litter_substrate
+  scale_color_manual(values = litter_colors) +  # Use defined colors for Litter_substrate
+  scale_shape_manual(values = c(15, 16)) +  # Set shapes for Litter_substrate
+  scale_linetype_manual(values = c("Vegetated" = "solid", "Unvegetated" = "dotted")) +  # Set linetypes for microsites
+  xlab("Time (months)") +
+  ylab("Nitrogen (%)") +
+  ggtitle("Vegetated and Unvegetated Patches") +
+  theme_bw() +  # Use theme_bw() for a white background
+  theme(
+    panel.grid = element_blank(),  # Remove grid lines
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1),
+    legend.position = "bottom",  # Hide legend temporarily
+    legend.justification = c(1, 0),  # Justify legend to bottom-right corner
+    legend.box.just = "right"  # Align legend box to right
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, 65), breaks = seq(30, 65, by = 5))  # Set Y-axis limits and breaks
+```
+
+### Perform the ANOVA test..but first, test for normality
+
+```{r}
+library(bestNormalize) 
+library(plyr) 
+library(psych)
+
+# check for normality
+qqnorm(Nitrogen$nitrogen)
+qqline(Nitrogen$nitrogen) # visualize the data - if normal the data should fall fairly well along the line
+shapiro.test(Nitrogen$nitrogen) # formal statistical test for normality - if P<0.05 then the data do NOT fit the assumptions of normality 
+```
+
+```{r}
+#perform three-way ANOVA
+Nitrogen <- aov(nitrogen~ Litter_substrate * microsite * Month, data=Nitrogen)
+summary(Nitrogen)
+
+TukeyHSD(Nitrogen, "Litter_substrate")
+TukeyHSD(Nitrogen, "microsite")
+TukeyHSD(Nitrogen, "Month")
+TukeyHSD(Nitrogen, "Litter_substrate*microsite*Month")
+```
+
+```{r}
+# convert character columns to factors
+Nitrogen$Species <- factor(Nitrogen$Month)
+Nitrogen$Litter_substrate <- factor(Nitrogen$Litter_substrate)
+Nitrogen$microsite <- factor(Nitrogen$microsite)
+```
+
+```{r}
+#perform three-way ANOVA
+Nitrogen <- aov(Ash_free_remaining ~ Litter_substrate * microsite * Month * Species, data=Nitrogen)
+summary(Nitrogen)
+
+TukeyHSD(Nitrogen, "Litter_substrate")
+TukeyHSD(Nitrogen, "microsite")
+TukeyHSD(Nitrogen, "Month")
+TukeyHSD(Nitrogen, "Litter_substrate*microsite*Month")
+```
