@@ -1,15 +1,15 @@
 ```{r}
 library(tidyverse)
 library(here) 
-library(plyr)
-library(dplyr)
-library("ggplot2")
 ```
+
+Updated 2024-08-31 by Heather Throop to fix grouping issues in summary statistics
 
 ### Import data, the CSV file...
 
 ```{r}
-Litter <- read.csv("C:/Users/nghal/OneDrive - Namibia University of Science and Technology/Documents/PhD work/Data collection/Data/Litter decomposition/Analyses/Litter083124.csv")
+# note - with "here" and synching with GitHub, you should not need to change the path to your computer
+Litter <- read.csv("Litter_2024-08-31.csv", header = TRUE)
 
 ```
 
@@ -27,10 +27,10 @@ Litter$microsite <- factor(Litter$microsite)
 Litter_T0 <- Litter %>%  # new df that includes only T0 bags, for transport loss calculations
   filter(Month == 0, na.rm = TRUE)
 
-Litter_T0 <- Litter_T0 %>%      # create new variable, tranport loss (litter loss in T0 bags, g)
+Litter_T0 <- Litter_T0 %>%      # create new variable, transport loss (litter loss in T0 bags, g)
   mutate(trsptloss_g = Initial_mass - Lbag_weight)
 
-Litter_T0 <- Litter_T0 %>%      # create new variable, tranport loss (%)
+Litter_T0 <- Litter_T0 %>%      # create new variable, transport loss (%)
   mutate(trsptloss_pct = trsptloss_g / Initial_mass * 100)
 ```
 
@@ -43,7 +43,7 @@ T0means <- Litter_T0 |>
   summarize(  N    = sum(!is.na(trsptloss_pct)),
               mean_trsptloss_pct = mean(trsptloss_pct, na.rm=TRUE),
               sd_trsptloss_pct   = sd(trsptloss_pct, na.rm=TRUE),
-              se_trsptloss_pct   = sd_trsptloss_pct / sqrt(N)
+              se_trsptloss_pct   = sd_trsptloss_pct, na.rm = TRUE / sqrt(N)
   )
 print(T0means)  
 ```
@@ -60,7 +60,7 @@ qqline(Litter_T0$trsptloss_pct) # visualize the data - if normal the data should
 
 ##HT: Given the oddity of transport loss distribution, I don't see a compelling argument for a transport loss correction
 
-# Calculate ash-free masses and ash-free mass remaining 
+# Calculate ash-free masses and ash-free mass remaining
 
 ### calculate percent ash of the litter for all litterbags
 
@@ -78,12 +78,13 @@ Litter <- Litter |>
 ### Calculate mean pct_ash values from the time 0 means for each of two litter substrates
 
 ```{r}
+## HT(202-08-31): I changed the code below so that a new variable is defined ("mean_pct_ash"). This should fix #the problem with the empty columns for sd_pct_ash and se_pct_ash
 
 pct_ash_means <- Litter |>
-   group_by(Species, Litter_substrate, Month) |>
+  group_by(Species, Litter_substrate, Month) |>
   summarise(
       N    = sum(!is.na(pct_ash)),
-        pct_ash = mean(pct_ash, na.rm=TRUE),
+         mean_pct_ash = mean(pct_ash, na.rm=TRUE),
          sd_pct_ash   = sd(pct_ash, na.rm=TRUE),
          se_pct_ash   = sd_pct_ash / sqrt(N))
 
@@ -91,7 +92,7 @@ pct_ash_means <- Litter |>
 
 ```
 
-##The above code is giving empty column for sd_pct_ash and se_pct_ash.
+##The above code is giving empty column for sd_pct_ash and se_pct_ash. ##HT(202-08-31) This should now be fixed
 
 ```{r}
 # define new variables for the inital percent ash for grass and shrub litter
