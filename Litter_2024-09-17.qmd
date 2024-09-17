@@ -1,0 +1,749 @@
+```{r}
+library(tidyverse)
+install.packages("here")
+library(here) 
+library(dplyr)
+```
+
+Updated 2024-08-31 by Heather Throop to fix grouping issues in summary statistics
+
+### Import data, the CSV file...
+
+```{r}
+# note - with "here" and synching with GitHub, you should not need to change the path to your computer
+Litter <- read.csv("C:/Users/nghal/OneDrive - Namibia University of Science and Technology/Documents/PhD work/Data collection/Data/Litter decomposition/Analyses/Litter083124.csv")
+
+```
+
+### convert character columns to factors
+
+```{r}
+Litter$Species <- factor(Litter$Species)
+Litter$Litter_substrate <- factor(Litter$Litter_substrate)
+Litter$microsite <- factor(Litter$microsite)
+```
+
+### Transport Loss Corrections
+
+```{r}
+Litter_T0 <- Litter %>%  # new df that includes only T0 bags, for transport loss calculations
+  filter(Month == 0, na.rm = TRUE)
+
+Litter_T0 <- Litter_T0 %>%      # create new variable, transport loss (litter loss in T0 bags, g)
+  mutate(trsptloss_g = Initial_mass - Lbag_weight)
+
+Litter_T0 <- Litter_T0 %>%      # create new variable, transport loss (%)
+  mutate(trsptloss_pct = trsptloss_g / Initial_mass * 100)
+```
+
+### Calculate means for transport losses for each litter substrates/type
+
+```{r}
+
+T0means <- Litter_T0 |>
+  group_by(Litter_substrate) |>
+  summarize(  N    = sum(!is.na(trsptloss_pct)),
+              mean_trsptloss_pct = mean(trsptloss_pct, na.rm=TRUE),
+              sd_trsptloss_pct   = sd(trsptloss_pct, na.rm=TRUE),
+              se_trsptloss_pct   = sd_trsptloss_pct, na.rm = TRUE / sqrt(N)
+  )
+print(T0means)  
+```
+
+### explore transport loss data
+
+```{r}
+hist(Litter_T0$trsptloss_pct)
+# check for normality of distribution of transport losses
+qqnorm(Litter_T0$trsptloss_pct)
+qqline(Litter_T0$trsptloss_pct) # visualize the data - if normal the data should fall fairly closely to the line 
+
+```
+
+##HT: Given the oddity of transport loss distribution, I don't see a compelling argument for a transport loss correction
+
+# Calculate ash-free masses and ash-free mass remaining
+
+### calculate percent ash of the litter for all litterbags
+
+```{r}
+
+### HT: Note that percent ash seems very low for time 0 -- these should be double-checked to increase our confidence
+Litter <- Litter |>
+  mutate(
+    sample_mass = Sample_cruc_mass - Crucible_mass,
+    ash_mass = Ash_cruc_mass - Crucible_mass,
+    pct_ash = (ash_mass/sample_mass)*100
+  )
+```
+
+### Calculate mean pct_ash values from the time 0 means for each of two litter substrates
+
+```{r}
+## HT(202-08-31): I changed the code below so that a new variable is defined ("mean_pct_ash"). This should fix #the problem with the empty columns for sd_pct_ash and se_pct_ash
+
+pct_ash_means <- Litter |>
+  group_by(Species, Litter_substrate, Month) |>
+  summarise(
+      N    = sum(!is.na(pct_ash)),
+         mean_pct_ash = mean(pct_ash, na.rm=TRUE),
+         sd_pct_ash   = sd(pct_ash, na.rm=TRUE),
+         se_pct_ash   = sd_pct_ash / sqrt(N))
+
+
+
+```
+
+### ##The above code is giving empty column for sd_pct_ash and se_pct_ash. ##HT(202-08-31) This should now be fixed
+
+```{r}
+# define new variables for the inital percent ash for grass and shrub litter
+grass_initial_pctash <- as.numeric(pct_ash_means[1,4])
+shrub_initial_pctash <- as.numeric(pct_ash_means[5,4])
+```
+
+```{r}
+
+# calculate ash-free initial and final litter masses
+Litter <- Litter |>
+  mutate(
+    Initial_mass_ash_free = ifelse(Litter_substrate == "Grass", 
+                                   Initial_mass * (100 - grass_initial_pctash) / 100, 
+                                   ifelse(Litter_substrate == "Shrub", 
+                                          Initial_mass * (100 - shrub_initial_pctash) / 100, 
+                                          NA)), # use NA for (non-existent) other cases
+    Final_mass_ash_free = Lbag_weight * (100 - pct_ash) / 100,
+    Pct_mass_remaining_ash_free = Final_mass_ash_free/Initial_mass_ash_free *100
+  ) 
+```
+
+```{r}
+write.csv(Litter, file = "Litter083124_1.csv")
+Litter083124_1 <- read.csv("Litter083124_1.csv")
+```
+
+```{r}
+library(dplyr)
+
+Ash_free_mean2 <- Litter083124_1 %>%
+  group_by(Litter_substrate, Month, Species, microsite) %>%
+  summarise(
+    N = sum(!is.na(Pct_mass_remaining_ash_free)),
+    mean_Pct_mass_remaining_ash_free = mean(Pct_mass_remaining_ash_free, na.rm = TRUE),
+    sd_Pct_mass_remaining_ash_free = sd(Pct_mass_remaining_ash_free, na.rm = TRUE),
+    se_Pct_mass_remaining_ash_free = sd_Pct_mass_remaining_ash_free/ sqrt(N)
+  ) %>%
+  ungroup()  # To remove the grouping after summarizing
+
+```
+
+```{r}
+write.csv(Ash_free_mean2, file = "Ash_free_mean2.csv")
+```
+
+### ##Mass remaining in shrub litter bags
+
+```{r}
+write.csv(filtered_data_shrub, file = "filtered_data_shrub.csv")
+```
+
+```{r}
+filtered_data_shrub_1 <- read.csv("filtered_data_shrub.csv")
+```
+
+```{r}
+# Plot the data for Shrub
+p_shrub <- ggplot(filtered_data_shrub_1, aes(x = Month, y = mean_Pct_mass_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_mass_remaining_ash_free - se_Pct_mass_remaining_ash_free, ymax = mean_Pct_mass_remaining_ash_free + se_Pct_mass_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Mass Remaining (%)") +
+  ggtitle("Shrub Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(0, 4, 8, 14)) +
+  scale_y_continuous(limits = c(30, 110), breaks = seq(30, 110, by = 10))
+print(p_shrub)
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+filtered_data_shrub_1$Litter_substrate <- factor(filtered_data_shrub_1$Litter_substrate)
+filtered_data_shrub_1$Species <- factor(filtered_data_shrub_1$Species)
+filtered_data_shrub_1$microsite <- factor(filtered_data_shrub_1$microsite)
+```
+
+```{r}
+#perform three-way ANOVA
+filtered_data_shrub_11 <- aov(mean_Pct_mass_remaining_ash_free ~ Species * microsite, data=filtered_data_shrub_1)
+summary(filtered_data_shrub_11)
+
+TukeyHSD(filtered_data_shrub_11, "Species")
+TukeyHSD(filtered_data_shrub_11, "microsite")
+TukeyHSD(filtered_data_shrub_11, "Species*microsite")
+```
+
+### ##Mass remaining in Grass litterbags
+
+```{r}
+write.csv(filtered_data_grass, file = "filtered_data_grass.csv")
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+filtered_data_grass_1 <- read.csv("filtered_data_grass.csv")
+```
+
+```{r}
+# Plot the data for Shrub
+p_grass <- ggplot(filtered_data_grass_1, aes(x = Month, y = mean_Pct_mass_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_mass_remaining_ash_free - se_Pct_mass_remaining_ash_free, ymax = mean_Pct_mass_remaining_ash_free + se_Pct_mass_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Mass Remaining (%)") +
+  ggtitle("Grass Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(0, 4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value), breaks = seq(30, max_y_value, by = 10))
+print(p_grass)
+```
+
+```{r}
+filtered_data_grass_1$Litter_substrate <- factor(filtered_data_grass_1$Litter_substrate)
+filtered_data_grass_1$Species <- factor(filtered_data_grass_1$Species)
+filtered_data_grass_1$microsite <- factor(filtered_data_grass_1$microsite)
+```
+
+```{r}
+#perform three-way ANOVA
+filtered_data_grass_11 <- aov(mean_Pct_mass_remaining_ash_free ~ Species * microsite, data=filtered_data_grass_1)
+summary(filtered_data_grass_11)
+
+TukeyHSD(filtered_data_grass_11, "Species")
+TukeyHSD(filtered_data_grass_11, "microsite")
+TukeyHSD(filtered_data_grass_11, "Species*microsite")
+```
+
+## Now, this is for Nitrogen, Carbon & C/N
+
+```{r}
+# define new variables for the inital percent ash for grass and shrub litter
+grass_nitro_pctash <- as.numeric(pct_ash_means[1,4])
+shrub_nitro_pctash <- as.numeric(pct_ash_means[5,4])
+```
+
+```{r}
+Litter <- Litter |>
+
+  mutate(
+
+    nitrogen_ash_free = ifelse(Litter_substrate == "Grass", 
+                               nitrogen * (100 - grass_nitro_pctash) / 100, 
+                               ifelse(Litter_substrate == "Shrub", 
+                                      nitrogen * (100 - shrub_nitro_pctash) / 100, 
+                                      NA)), # adjust nitrogen content based on ash content
+    Final_nitrogen_ash_free = nitrogen_ash_free * (100 - pct_ash) / 100,
+    Pct_nitrogen_remaining_ash_free = Final_nitrogen_ash_free / nitrogen_ash_free * 100
+  )
+```
+
+```{r}
+write.csv(Litter, file = "nitrogen091624_1.csv")
+nitrogen091624_1 <- read.csv("nitrogen091624_1.csv")
+```
+
+```{r}
+library(dplyr)
+
+Ash_free_nitrogen <- nitrogen091624_1 %>%
+  group_by(Litter_substrate, Month, Species, microsite) %>%
+  summarise(
+    N = sum(!is.na(Pct_nitrogen_remaining_ash_free)),
+    mean_Pct_nitrogen_remaining_ash_free = mean(Pct_nitrogen_remaining_ash_free, na.rm = TRUE),
+    sd_Pct_nitrogen_remaining_ash_free = sd(Pct_nitrogen_remaining_ash_free, na.rm = TRUE),
+    se_Pct_nitrogen_remaining_ash_free = sd_Pct_nitrogen_remaining_ash_free/ sqrt(N)
+  ) %>%
+  ungroup()  # To remove the grouping after summarizing
+```
+
+```{r}
+# Filter the data for Shrub and the relevant microsite
+nitro_data_shrub_1 <- subset(Ash_free_nitrogen, Litter_substrate == "Shrub" & microsite %in% names(microsites_colors))
+
+pd <- position_dodge(0.1) # move error bars .05 to the left and right
+
+# Get the max value for the y-axis limit (handle cases with NA)
+max_y_value <- max(nitro_data_shrub_1$mean_Pct_nitrogen_remaining_ash_free, na.rm = TRUE)
+if (is.infinite(max_y_value)) {
+  max_y_value <- 100  # Default maximum value if all data are NA or missing
+}
+
+# Plot the data for Shrub
+p_shrub <- ggplot(nitro_data_shrub_1, aes(x = Month, y = mean_Pct_nitrogen_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_nitrogen_remaining_ash_free - se_Pct_nitrogen_remaining_ash_free, ymax = mean_Pct_nitrogen_remaining_ash_free + se_Pct_nitrogen_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Nitrogen (%)") +
+  ggtitle("Shrub Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value), breaks = seq(30, max_y_value, by = 30))
+print(p_shrub)
+```
+
+```{r}
+p_shrub <- ggplot(nitro_data_shrub_1, aes(x = Month, y = mean_Pct_nitrogen_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_nitrogen_remaining_ash_free - se_Pct_nitrogen_remaining_ash_free, ymax = mean_Pct_nitrogen_remaining_ash_free + se_Pct_nitrogen_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Nitrogen (%)") +
+  ggtitle("Shrub Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value + 10), breaks = seq(30, max_y_value + 10, by = 10)) # Optional: Adjust aspect ratio for more height
+print(p_shrub)
+```
+
+```{r}
+write.csv(nitro_data_shrub_1, file = "nitro_data_shrub_1.csv")
+```
+
+```{r}
+nitro_data_shrub <- read.csv("nitro_data_shrub_1.csv")
+```
+
+```{r}
+p_shrub <- ggplot(nitro_data_shrub, aes(x = Month, y = mean_Pct_nitrogen_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_nitrogen_remaining_ash_free - se_Pct_nitrogen_remaining_ash_free, ymax = mean_Pct_nitrogen_remaining_ash_free + se_Pct_nitrogen_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Collection time (months)") +
+  ylab("Nitrogen (%)") +
+  ggtitle("Shrub Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value + 5), breaks = seq(30, max_y_value + 5, by = 5)) # Optional: Adjust aspect ratio for more height
+print(p_shrub)
+```
+
+### Grass Nitrogen
+
+```{r}
+#Define microsite and color
+microsites_colors <- c("Vegetated_patch" = "blue", "Unvegetated_patch" = "red")
+
+# Define the unique colors for Species
+Species_colors <- c("Arthraerua_leubnitziae " = "darkgreen", "Ectadium_rotundifolium " = "chocolate", "Salsola_nollothensis" = "blue")
+
+# Filter the data for Shrub and the relevant microsite
+nitro_data_grass_1 <- subset(Ash_free_nitrogen, Litter_substrate == "Grass" & microsite %in% names(microsites_colors))
+
+pd <- position_dodge(0.1) # move error bars .05 to the left and right
+
+# Get the max value for the y-axis limit (handle cases with NA)
+max_y_value <- max(nitro_data_grass_1$mean_Pct_nitrogen_remaining_ash_free, na.rm = TRUE)
+if (is.infinite(max_y_value)) {
+  max_y_value <- 100  # Default maximum value if all data are NA or missing
+}
+
+# Plot the data for Shrub
+p_grass <- ggplot(nitro_data_grass_1, aes(x = Month, y = mean_Pct_nitrogen_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_nitrogen_remaining_ash_free - se_Pct_nitrogen_remaining_ash_free, ymax = mean_Pct_nitrogen_remaining_ash_free + se_Pct_nitrogen_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Nitrogen (%)") +
+  ggtitle("Grass Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value), breaks = seq(30, max_y_value, by = 30))
+print(p_grass)
+```
+
+```{r}
+write.csv(nitro_data_grass_1, file = "nitro_data_grass_1.csv")
+```
+
+```{r}
+nitro_data_grass <- read.csv("nitro_data_grass_1.csv")
+```
+
+```{r}
+p_grass <- ggplot(nitro_data_grass, aes(x = Month, y = mean_Pct_nitrogen_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_nitrogen_remaining_ash_free - se_Pct_nitrogen_remaining_ash_free, ymax = mean_Pct_nitrogen_remaining_ash_free + se_Pct_nitrogen_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Collection time (months)") +
+  ylab("Nitrogen (%)") +
+  ggtitle("Grass Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value + 5), breaks = seq(30, max_y_value + 5, by = 5)) # Optional: Adjust aspect ratio for more height
+print(p_grass)
+```
+
+```{r}
+Month_1409<- subset(Litter, Month=="14")
+```
+
+```{r}
+# check for normality
+qqnorm(Month_1409$nitrogen)#Month_14 is my dataframe, and Ash_free_mass_remaining is the column name of the data I want to normalize.
+qqline(Month_1409$nitrogen) # visualize the data - if normal the data should fall fairly well along the line
+shapiro.test(Month_1409$nitrogen) # formal statistical test for normality - if P<0.05 then the data do NOT fit the assumptions of normality 
+```
+
+```{r}
+# check for normality
+qqnorm(Month_1409$carbon)#Month_14 is my dataframe, and Ash_free_mass_remaining is the column name of the data I want to normalize.
+qqline(Month_1409$carbon) # visualize the data - if normal the data should fall fairly well along the line
+shapiro.test(Month_1409$carbon) # formal statistical test for normality - if P<0.05 then the data do NOT fit the assumptions of normality 
+```
+
+```{r}
+# Ff the data is not nomally distributed, normalize using package bestNormalize
+carbon_remaining <- bestNormalize(Month_1409$carbon, allow_lambert_s = TRUE) #use bestNormalize to come up with optimal normalization 
+carbon_remaining # show the normalization options - the lowest value is the most normal
+Month_1409$carbon_norm <- predict(carbon_remaining) # create a new variable (the transformed data) using the function selected by bestNormalize
+qqnorm(Month_1409$carbon_norm) # look at the plot of the new transformed variable
+qqline(Month_1409$carbon_norm) # add the line to the plot
+shapiro.test(Month_1409$carbon_norm) # formal statistical test for normality on the transformed data
+
+```
+
+### Carbon
+
+```{r}
+#perform three-way ANOVA
+Month_1409_C <- aov(carbon ~ Litter_substrate * Species * microsite, data=Month_1409)
+summary(Month_1409_C)
+
+TukeyHSD(Month_1409_C, "Litter_substrate")
+TukeyHSD(Month_1409_C, "microsite")
+TukeyHSD(Month_1409_C, "Species")
+TukeyHSD(Month_1409_C, "microsite*Species")
+TukeyHSD(Month_1409_C, "microsite*Litter_substrate")
+TukeyHSD(Month_1409_C, "Litter_substrate*microsite")
+TukeyHSD(Month_1409_C, "Litter_substrate*Species*microsite")
+```
+
+### Nitrogen
+
+```{r}
+#perform three-way ANOVA
+Month_1409_1 <- aov(nitrogen ~ Litter_substrate * Species * microsite, data=Month_1409)
+summary(Month_1409_1)
+
+TukeyHSD(Month_1409_1, "Litter_substrate")
+TukeyHSD(Month_1409_1, "microsite")
+TukeyHSD(Month_1409_1, "Species")
+TukeyHSD(Month_1409_1, "microsite*Species")
+TukeyHSD(Month_1409_1, "microsite*Litter_substrate")
+TukeyHSD(Month_1409_1, "Litter_substrate*microsite")
+TukeyHSD(Month_1409_1, "Litter_substrate*Species*microsite")
+```
+
+### C/N
+
+```{r}
+
+# check for normality
+qqnorm(Month_1409$C_N)#Month_1409 is my dataframe, and C_N is the column name of the data I want to normalize.
+qqline(Month_1409$C_N) # visualize the data - if normal the data should fall fairly well along the line
+shapiro.test(Month_1409$C_N) # formal statistical test for normality - if P<0.05 then the data do NOT fit the assumptions of normality 
+```
+
+```{r}
+# Ff the data is not nomally distributed, normalize using package bestNormalize
+C_N <- bestNormalize(Month_1409$C_N, allow_lambert_s = TRUE) #use bestNormalize to come up with optimal normalization 
+C_N # show the normalization options - the lowest value is the most normal
+Month_1409$C_N_norm <- predict(C_N) # create a new variable (the transformed data) using the function selected by bestNormalize
+qqnorm(Month_1409$C_N_norm) # look at the plot of the new transformed variable
+qqline(Month_1409$C_N_norm) # add the line to the plot
+shapiro.test(Month_1409$C_N_norm) # formal statistical test for normality on the transformed data
+```
+
+```{r}
+#perform three-way ANOVA
+Month_1409_C_N <- aov(C_N ~ Litter_substrate * Species * microsite, data=Month_1409)
+summary(Month_1409_C_N)
+
+TukeyHSD(Month_1409_C_N, "Litter_substrate")
+TukeyHSD(Month_1409_C_N, "microsite")
+TukeyHSD(Month_1409_C_N, "Species")
+TukeyHSD(Month_1409_C_N, "microsite*Species")
+TukeyHSD(Month_1409_C_N, "microsite*Litter_substrate")
+TukeyHSD(Month_1409_C_N, "Litter_substrate*microsite")
+TukeyHSD(Month_1409_C_N, "Litter_substrate*Species*microsite")
+```
+
+### Carbon
+
+```{r}
+# define new variables for the inital percent ash for grass and shrub litter
+grass_carbon_pctash <- as.numeric(pct_ash_means[1,4])
+shrub_carbon_pctash <- as.numeric(pct_ash_means[5,4])
+```
+
+```{r}
+Litter <- Litter |>
+
+  mutate(
+
+    carbon_ash_free = ifelse(Litter_substrate == "Grass", 
+                               carbon * (100 - grass_carbon_pctash) / 100, 
+                               ifelse(Litter_substrate == "Shrub", 
+                                      carbon * (100 - shrub_carbon_pctash) / 100, 
+                                      NA)), # adjust carbon content based on ash content
+    Final_carbon_ash_free = carbon_ash_free * (100 - pct_ash) / 100,
+    Pct_carbon_remaining_ash_free = Final_carbon_ash_free / carbon_ash_free * 100
+  )
+```
+
+```{r}
+write.csv(Litter, file = "carbon091624_1.csv")
+carbon091624_1 <- read.csv("carbon091624_1.csv")
+```
+
+```{r}
+library(dplyr)
+
+Ash_free_carbon <- carbon091624_1 %>%
+  group_by(Litter_substrate, Month, Species, microsite) %>%
+  summarise(
+    N = sum(!is.na(Pct_carbon_remaining_ash_free)),
+    mean_Pct_carbon_remaining_ash_free = mean(Pct_carbon_remaining_ash_free, na.rm = TRUE),
+    sd_Pct_carbon_remaining_ash_free = sd(Pct_carbon_remaining_ash_free, na.rm = TRUE),
+    se_Pct_carbon_remaining_ash_free = sd_Pct_carbon_remaining_ash_free/ sqrt(N)
+  ) %>%
+  ungroup()  # To remove the grouping after summarizing
+```
+
+```{r}
+#Define microsite and color
+microsites_colors <- c("Vegetated_patch" = "blue", "Unvegetated_patch" = "red")
+
+# Define the unique colors for Species
+Species_colors <- c("Arthraerua_leubnitziae " = "darkgreen", "Ectadium_rotundifolium " = "chocolate", "Salsola_nollothensis" = "blue")
+
+# Filter the data for Shrub and the relevant microsite
+carbon_data_shrub_1 <- subset(Ash_free_carbon, Litter_substrate == "Shrub" & microsite %in% names(microsites_colors))
+
+pd <- position_dodge(0.1) # move error bars .05 to the left and right
+
+# Get the max value for the y-axis limit (handle cases with NA)
+max_y_value <- max(carbon_data_shrub_1$mean_Pct_carbon_remaining_ash_free, na.rm = TRUE)
+if (is.infinite(max_y_value)) {
+  max_y_value <- 100  # Default maximum value if all data are NA or missing
+}
+
+# Plot the data for Shrub
+p_shrub <- ggplot(carbon_data_shrub_1, aes(x = Month, y = mean_Pct_carbon_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_carbon_remaining_ash_free - se_Pct_carbon_remaining_ash_free, ymax = mean_Pct_carbon_remaining_ash_free + se_Pct_carbon_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Carbon (%)") +
+  ggtitle("Shrub Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value), breaks = seq(30, max_y_value, by = 30))
+print(p_shrub)
+```
+
+```{r}
+write.csv(carbon_data_shrub_1, file = "carbon_data_shrub_1.csv")
+```
+
+```{r}
+carbon_data_shrub <- read.csv("carbon_data_shrub_1.csv")
+```
+
+```{r}
+p_shrub <- ggplot(carbon_data_shrub, aes(x = Month, y = mean_Pct_carbon_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_carbon_remaining_ash_free - se_Pct_carbon_remaining_ash_free, ymax = mean_Pct_carbon_remaining_ash_free + se_Pct_carbon_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Collection time (months)") +
+  ylab("Carbon (%)") +
+  ggtitle("Shrub Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value + 5), breaks = seq(30, max_y_value + 5, by = 5)) # Optional: Adjust aspect ratio for more height
+print(p_shrub)
+```
+
+### Grass
+
+```{r}
+#Define microsite and color
+microsites_colors <- c("Vegetated_patch" = "blue", "Unvegetated_patch" = "red")
+
+# Define the unique colors for Species
+Species_colors <- c("Arthraerua_leubnitziae " = "darkgreen", "Ectadium_rotundifolium " = "chocolate", "Salsola_nollothensis" = "blue")
+
+# Filter the data for Shrub and the relevant microsite
+carbon_data_grass_1 <- subset(Ash_free_carbon, Litter_substrate == "Grass" & microsite %in% names(microsites_colors))
+
+pd <- position_dodge(0.1) # move error bars .05 to the left and right
+
+# Get the max value for the y-axis limit (handle cases with NA)
+max_y_value <- max(carbon_data_grass_1$mean_Pct_carbon_remaining_ash_free, na.rm = TRUE)
+if (is.infinite(max_y_value)) {
+  max_y_value <- 100  # Default maximum value if all data are NA or missing
+}
+
+# Plot the data for Shrub
+p_grass <- ggplot(carbon_data_grass_1, aes(x = Month, y = mean_Pct_carbon_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_carbon_remaining_ash_free - se_Pct_carbon_remaining_ash_free, ymax = mean_Pct_carbon_remaining_ash_free + se_Pct_carbon_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Time (months)") +
+  ylab("Carbon (%)") +
+  ggtitle("Grass Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value), breaks = seq(30, max_y_value, by = 30))
+print(p_grass)
+```
+
+```{r}
+write.csv(carbon_data_grass_1, file = "carbon_data_grass_1.csv")
+```
+
+```{r}
+carbon_data_grass <- read.csv("carbon_data_grass_1.csv")
+```
+
+```{r}
+p_grass <- ggplot(carbon_data_grass, aes(x = Month, y = mean_Pct_carbon_remaining_ash_free, shape = Species, group = interaction(microsite, Species))) +
+  geom_line(aes(color = Species, linetype = microsite), position = pd, linewidth = 1) +  
+  geom_point(aes(color = Species), position = pd, size = 3) +     
+  geom_errorbar(aes(ymin = mean_Pct_carbon_remaining_ash_free - se_Pct_carbon_remaining_ash_free, ymax = mean_Pct_carbon_remaining_ash_free + se_Pct_carbon_remaining_ash_free, color = Species), width = 0.5) +  
+  scale_color_manual(values = Species_colors) +  
+  scale_shape_manual(values = c(15, 16, 17)) +  
+  scale_linetype_manual(values = c("Vegetated_patch" = "solid", "Unvegetated_patch" = "dotted")) +  
+  xlab("Collection time (months)") +
+  ylab("Carbon (%)") +
+  ggtitle("Grass Litter: Vegetated and Unvegetated Patches") +
+  theme_bw() +  
+  theme(
+    panel.grid = element_blank(),  
+    legend.title = element_blank(),
+    axis.text.x = element_text(hjust = 1, color = "black", size = 11, vjust = 1),
+    axis.text.y = element_text(angle = 0, color = "black", size = 11, hjust = 1, vjust = 1)
+  ) +
+  coord_cartesian(xlim = c(0, 15)) +
+  scale_x_continuous(breaks = c(4, 8, 14)) +
+  scale_y_continuous(limits = c(30, max_y_value + 5), breaks = seq(30, max_y_value + 5, by = 5)) # Optional: Adjust aspect ratio for more height
+print(p_grass)
+```
