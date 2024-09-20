@@ -157,9 +157,10 @@ Litter <- Litter |>
   )
 
 # Heather's code
+### BUT we do not have initial percent nitrogen ... we could calculate a mean value for each species like we do for ash content, but I believe that we don't have any time 0 N data, right? Given this I would suggest just presenting data as final ash-free percent N. The other option would be to come up with some estimate of the intial percent N and use that.
 Litter2 <- Litter |>
   mutate(
-    Init_N_mass = nitrogen/100*Initial_mass,
+    Init_N_mass = Init_pct_nitrogen/100*Initial_mass,
     Final_N_mass = nitrogen/100*Lbag_weight,
     Init_pctN_ash_free = Init_N_mass / Initial_mass_ash_free * 100,
     Final_pctN_ash_free = Final_N_mass / Final_mass_ash_free * 100,    
