@@ -1,0 +1,170 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(tidyverse)
+library(here) 
+#library(dplyr)
+```
+
+Updated 2024-08-31 by Heather Throop to fix grouping issues in summary statistics
+
+### Import data, the CSV file...
+
+```{r}
+####### note - with "here" and synching with GitHub, you should not need to change the path to your computer ######
+Litter <- read.csv(here("Litter_2024-08-31.csv"))
+
+```
+
+### convert character columns to factors
+
+```{r}
+Litter$Species <- factor(Litter$Species)
+Litter$Litter_substrate <- factor(Litter$Litter_substrate)
+Litter$microsite <- factor(Litter$microsite)
+```
+
+### Transport Loss Corrections
+
+```{r}
+Litter_T0 <- Litter %>%  # new df that includes only T0 bags, for transport loss calculations
+  filter(Month == 0, na.rm = TRUE)
+
+Litter_T0 <- Litter_T0 %>%      # create new variable, transport loss (litter loss in T0 bags, g)
+  mutate(trsptloss_g = Initial_mass - Lbag_weight)
+
+Litter_T0 <- Litter_T0 %>%      # create new variable, transport loss (%)
+  mutate(trsptloss_pct = trsptloss_g / Initial_mass * 100)
+```
+
+### Calculate means for transport losses for each litter substrates/type
+
+```{r}
+
+T0means <- Litter_T0 |>
+  group_by(Litter_substrate) |>
+  summarize(  N    = sum(!is.na(trsptloss_pct)),
+              mean_trsptloss_pct = mean(trsptloss_pct, na.rm=TRUE),
+              sd_trsptloss_pct   = sd(trsptloss_pct, na.rm=TRUE),
+              se_trsptloss_pct   = sd_trsptloss_pct, na.rm = TRUE / sqrt(N)
+  )
+print(T0means)  
+```
+
+### explore transport loss data
+
+```{r}
+hist(Litter_T0$trsptloss_pct)
+# check for normality of distribution of transport losses
+qqnorm(Litter_T0$trsptloss_pct)
+qqline(Litter_T0$trsptloss_pct) # visualize the data - if normal the data should fall fairly closely to the line 
+
+```
+
+##HT: Given the oddity of transport loss distribution, I don't see a compelling argument for a transport loss correction
+
+# Calculate ash-free masses and ash-free mass remaining
+
+### calculate percent ash of the litter for all litterbags
+
+```{r}
+
+### HT: Note that percent ash seems very low for time 0 -- these should be double-checked to increase our confidence
+Litter <- Litter |>
+  mutate(
+    sample_mass = Sample_cruc_mass - Crucible_mass,
+    ash_mass = Ash_cruc_mass - Crucible_mass,
+    pct_ash = (ash_mass/sample_mass)*100
+  )
+```
+
+### Calculate mean pct_ash values from the time 0 means for each of two litter substrates
+
+```{r}
+## HT(2024-08-31): I changed the code below so that a new variable is defined ("mean_pct_ash"). This should fix #the problem with the empty columns for sd_pct_ash and se_pct_ash
+
+### HT(2024-09-17): I think that a prior iteration of this code did not include species. I don't think that species should be included since the species of the hummock should not affect the ash content of the litter. As it is currently, there are separate means for each species, which is not necessary. The other issue is that this causes the variables in the next code chunk to be referenced incorrectly (they are referenced by position in the table, so adding the species column changes the position of the variables). I have removed the species column from the group_by function.
+
+pct_ash_means <- Litter |>
+  group_by(Litter_substrate, Month) |>
+  summarise(
+      N    = sum(!is.na(pct_ash)),
+         mean_pct_ash = mean(pct_ash, na.rm=TRUE),
+         sd_pct_ash   = sd(pct_ash, na.rm=TRUE),
+         se_pct_ash   = sd_pct_ash / sqrt(N))
+
+
+
+```
+
+### ##The above code is giving empty column for sd_pct_ash and se_pct_ash. ##HT(202-08-31) This should now be fixed
+
+```{r}
+# define new variables for the inital percent ash for grass and shrub litter
+### HT(2024-09-17): by removing the species column in the code chunk above, we now how the correct position for the grass and shrub ash values (in the past iteration these variables returned 15 and 16, which were the sample sizes)
+grass_initial_pctash <- as.numeric(pct_ash_means[1,4])
+shrub_initial_pctash <- as.numeric(pct_ash_means[5,4])
+```
+
+```{r}
+
+# calculate ash-free initial and final litter masses
+Litter <- Litter |>
+  mutate(
+    Initial_mass_ash_free = ifelse(Litter_substrate == "Grass", 
+                                   Initial_mass * (100 - grass_initial_pctash) / 100, 
+                                   ifelse(Litter_substrate == "Shrub", 
+                                          Initial_mass * (100 - shrub_initial_pctash) / 100, 
+                                          NA)), # use NA for (non-existent) other cases
+    Final_mass_ash_free = Lbag_weight * (100 - pct_ash) / 100,
+    Pct_mass_remaining_ash_free = Final_mass_ash_free/Initial_mass_ash_free *100
+  ) 
+```
+
+### (2024-09-19 HT): I deleted code in the middle that wasn't relevant for the C and N calculations
+
+## Now, this is for Nitrogen, Carbon & C/N
+
+```{r}
+# define new variables for the inital percent ash for grass and shrub litter
+### HT(2024-09-17): These were already defined above (grass_initial_pctash, shrub
+#initial_pctash) so I have commented them out
+#grass_nitro_pctash <- as.numeric(pct_ash_means[1,4])
+#shrub_nitro_pctash <- as.numeric(pct_ash_means[5,4])
+
+```
+
+```{r}
+
+# calculate ash-free initial and final percent N
+### (2024-09-19 HT): I got confused here with variable names and started out changing to make sure that I was tracking correctly mass, percent, ash-free, etc. I also wrote some code illustrating how I typically do this calculation. I usually just work with the mass of N - we know this from the elemental analysis multiplied by the sample mass. We can then calculate the ash-free mass of N by multiplying the mass of N by the ash-free mass of the sample, and do the same for the final masses. Take a look, see if this makes sense, and let me know if you have questions.
+
+# Original code
+Litter <- Litter |>
+
+  mutate(
+
+    Init_nitrogen_ash_free = ifelse(Litter_substrate == "Grass", 
+                               nitrogen * (100 - grass_initial_pctash) / 100, 
+                               ifelse(Litter_substrate == "Shrub", 
+                                      nitrogen * (100 - shrub_initial_pctash) / 100, 
+                                      NA)), # adjust nitrogen content based on ash content
+    Final_nitrogen_ash_free = Init_nitrogen_ash_free * (100 - pct_ash) / 100,
+    Pct_nitrogen_remaining_ash_free = Final_nitrogen_ash_free / nitrogen_ash_free * 100
+  )
+
+# Heather's code
+Litter2 <- Litter |>
+  mutate(
+    Init_N_mass = nitrogen/100*Initial_mass,
+    Final_N_mass = nitrogen/100*Lbag_weight,
+    Init_pctN_ash_free = Init_N_mass / Initial_mass_ash_free * 100,
+    Final_pctN_ash_free = Final_N_mass / Final_mass_ash_free * 100,    
+    Pct_N_remaining = Init_N_mass / Final_N_mass * 100
+  )
+
+
+```
